@@ -1,0 +1,149 @@
+<html>
+    <head>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title>Interest Calculation</title>
+
+        <script>
+     $(document).ready(function(){
+var isCompound=true;
+  var total;
+  var amount;
+  var rate;
+  var time;
+  var noOfComp;
+  var isYearly=false;
+  
+  function checkCompound(){
+  if(isCompound==true){
+         $("#compoundChoice").css('background-color', '#5BC0DE');
+           $("#simpleChoice").css('background-color', '#B0E0E6');
+                         $("#compTimes").show();
+
+        }else{
+         $("#compoundChoice").css('background-color', '#B0E0E6');
+           $("#simpleChoice").css('background-color', '#5BC0DE');
+                     $("#compTimes").hide();
+
+        }
+  }
+   $("#compoundChoice").click(function(){
+     
+        if(isCompound==false){
+     isCompound=true;
+  checkCompound();
+          
+        }else{
+           isCompound=false;
+  checkCompound();
+          
+        }
+
+});
+  
+    $("#simpleChoice").click(function(){
+     
+        if(isCompound==false){
+     isCompound=true;
+  checkCompound();
+        }else{
+           isCompound=false;
+  checkCompound();
+          
+        }
+
+});
+  
+     $("#calculate").click(function(){
+
+     amount = document.getElementById("amount").value;
+     rate = document.getElementById("rate").value;
+     time = document.getElementById("time").value;
+     noOfComp = document.getElementById("noOfComp").value;
+
+
+             if(isCompound===true){
+
+       doCalculationComp();}
+       else{
+         doCalcSimp();
+       }
+     
+     });
+  function doCalculationComp(){
+   total = (amount* Math.pow((1 + (rate/(noOfComp*100))), (noOfComp*time)));
+console.log(total);
+    result.innerHTML = "The total amount is " + total.toFixed(2);
+
+                result.innerHTML += "<br> The interest is " + (total.toFixed(2) - amount).toFixed(2);
+  }
+  
+function doCalcSimp(){    
+var  interest=amount*time*rate/100;
+  var total1=parseInt(interest) + parseInt(amount);
+  
+    result.innerHTML = "The total is " + (total1);
+      result.innerHTML += "<br> The interest is " + (interest);
+
+  }
+
+});
+
+        </script>
+        <style>
+      
+    div {
+                display: table-row;
+            }
+
+            label, input {
+                display: table-cell;
+            }
+
+.btn-danger{
+  background-color:#AA2211;
+  
+}
+ html, body{
+
+ background-image: url(http://cdn.wallpapersafari.com/2/22/Bvdyrn.jpg);
+}}
+
+.btn-info{
+    color:black;
+}
+#simpleChoice{
+  background-color:#B0E0E6;
+}
+
+        </style>
+    </head>
+
+    <body>
+<div class="container">
+ 
+  <h1>Interest Calculator</h1>
+   
+  <a class="btn btn-info" id="compoundChoice" >Compound</a> / <a class="btn btn-info" id="simpleChoice" >Simple</a>
+  <br/>
+  <br/>
+  
+
+  
+  
+          <div> <label>Amount: </label> <input id="amount"> </div>
+        <div> <label>Rate (%): </label> <input id="rate"> </div>
+        <div> <label>No. of Years: </label> <input id="time"> </div>
+        <div id="compTimes"> <label>Compunding Times Per Year: </label> <input id="noOfComp" value="1"> </div>
+  <a class="btn btn-danger" id="calculate" >Calculate</a>
+  </div>
+  <p id="result"></p>
+
+    </body>
+</html>
